@@ -1,8 +1,6 @@
+import { readFileRows } from './utils'
 
-
-import fs from 'fs'
-
-const input01 = fs.readFileSync('./input01.txt', 'utf-8')
+const input01 = readFileRows('./input01.txt')
 const test = `199
 200
 208
@@ -12,10 +10,12 @@ const test = `199
 240
 269
 260
-263`
+263`.split("\n")
 
-function parseInput(input: string): number[] {
-  return String(input).split("\n").map(Number)
+console.log(input01)
+
+function parseInput(input: string[]): number[] {
+  return input.map(Number)
 }
 
 const testInput = parseInput(test)
@@ -35,8 +35,8 @@ function part1(input: number[]): number {
 
 function tripleSums(nums: number[]): number[] {
   const sums = []
-  for (let i = 0; i < nums.length-2; i++) {
-    sums.push(nums[i] + nums[i+1] + nums[i+2])
+  for (let i = 0; i < nums.length - 2; i++) {
+    sums.push(nums[i] + nums[i + 1] + nums[i + 2])
   }
   return sums
 }

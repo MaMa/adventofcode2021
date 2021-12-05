@@ -1,12 +1,12 @@
-import fs from 'fs'
+import { readFileRows } from './utils';
 
-const input02 = fs.readFileSync('./input02.txt', 'utf-8')
+const input02 = readFileRows('./input02.txt')
 const test = `forward 5
 down 5
 forward 8
 up 3
 down 8
-forward 2`;
+forward 2`.split("\n")
 
 enum Direction {
   forward = 'forward',
@@ -16,7 +16,7 @@ enum Direction {
 
 type Command = [Direction, number]
 
-function parseInput(input: string): Command[] {
+function parseInput(input: string[]): Command[] {
   const parseDir = (d: string) => {
     switch (d) {
       case 'up': return Direction.up
@@ -27,8 +27,7 @@ function parseInput(input: string): Command[] {
         throw new Error(`Invalid direction`)
     }
   }
-  return input.trim().split("\n")
-    .map(row => row.split(" "))
+  return input.map(row => row.split(" "))
     .map(cmd => [parseDir(cmd[0]), Number(cmd[1])])
 }
 
