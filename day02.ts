@@ -23,7 +23,7 @@ function parseInput(input: string): Command[] {
       case 'down': return Direction.down
       case 'forward': return Direction.forward
       default:
-        console.error({d})
+        console.error({ d })
         throw new Error(`Invalid direction`)
     }
   }
@@ -57,7 +57,33 @@ function part1(cmds: Command[]): number {
   return x * y
 }
 
-console.log(parseInput(test))
+function part2(cmds: Command[]): number {
+  let x = 0
+  let y = 0
+  let aim = 0
+  cmds.forEach(cmd => {
+    const [dir, amount] = cmd
+    switch (dir) {
+      case Direction.forward:
+        x = x + amount
+        y = y + (aim * amount)
+        break;
+      case Direction.up:
+        aim = aim - amount
+        break;
+      case Direction.down:
+        aim = aim + amount
+        break;
+      default:
+        throw new Error('nope')
+    }
+  })
+  return x * y
+}
+
 
 console.log('test1', part1(testInput))
 console.log('part1', part1(dayInput))
+
+console.log('test2', part2(testInput))
+console.log('part2', part2(dayInput))
